@@ -19,8 +19,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @author Esmael
  *
  */
-@Profile("basic-security")
-@EnableWebSecurity
+//@Profile("basic-security")
+//@EnableWebSecurity
 public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired

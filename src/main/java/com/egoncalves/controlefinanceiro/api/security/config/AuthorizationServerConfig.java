@@ -26,7 +26,7 @@ import com.egoncalves.controlefinanceiro.api.security.token.CustomTokenEnhancer;
  * @author Esmael
  *
  */
-@Profile("oauth-security")
+//@Profile("oauth-security")
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {

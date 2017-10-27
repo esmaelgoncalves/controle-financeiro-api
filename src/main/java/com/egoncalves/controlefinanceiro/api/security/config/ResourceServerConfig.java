@@ -25,7 +25,7 @@ import org.springframework.security.oauth2.provider.expression.OAuth2MethodSecur
  * @author Esmael
  *
  */
-@Profile("oauth-security")
+//@Profile("oauth-security")
 @Configuration
 @EnableWebSecurity
 @EnableResourceServer
