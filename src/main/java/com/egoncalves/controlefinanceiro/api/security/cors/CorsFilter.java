@@ -23,13 +23,12 @@ import com.egoncalves.controlefinanceiro.api.config.ControleFinanceiroAPIPropert
 public class CorsFilter implements Filter {
 	
 	@Autowired
-	ControleFinanceiroAPIProperty properties;
+	private ControleFinanceiroAPIProperty properties;
 
-	private String originPermitida = "http://localhost:8000"; // TODO: Configurar para diferentes ambientes
-	
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
 			throws IOException, ServletException {
+		String originPermitida = properties.getOriginPermitida();
 		
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
@@ -37,7 +36,7 @@ public class CorsFilter implements Filter {
 		response.setHeader("Access-Control-Allow-Origin", originPermitida);
         response.setHeader("Access-Control-Allow-Credentials", "true");
 		
-		if ("OPTIONS".equals(request.getMethod())/* && originPermitida.equals(request.getHeader("Origin"))*/) {
+		if ("OPTIONS".equals(request.getMethod()) && originPermitida.equals(request.getHeader("Origin"))) {
 			response.setHeader("Access-Control-Allow-Methods", "POST, GET, DELETE, PUT, OPTIONS");
         	response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Accept");
         	response.setHeader("Access-Control-Max-Age", "3600");

@@ -25,11 +25,11 @@ import org.springframework.security.oauth2.provider.expression.OAuth2MethodSecur
  * @author Esmael
  *
  */
-//@Profile("oauth-security")
-//@Configuration
-//@EnableWebSecurity
-//@EnableResourceServer
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
+@Profile("oauth-security")
+@Configuration
+@EnableWebSecurity
+@EnableResourceServer
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	
 	@Autowired
