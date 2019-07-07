@@ -3,6 +3,7 @@
  */
 package com.egoncalves.controlefinanceiro.api.repository.lancamento;
 
+import com.egoncalves.controlefinanceiro.api.model.dto.LancamentoEstatisticaCategoria;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -10,11 +11,17 @@ import com.egoncalves.controlefinanceiro.api.model.Lancamento;
 import com.egoncalves.controlefinanceiro.api.model.projection.ResumoLancamento;
 import com.egoncalves.controlefinanceiro.api.repository.filter.LancamentoFilter;
 
+import java.time.LocalDate;
+import java.util.List;
+
 /**
  * @author Esmael
  *
  */
 public interface LancamentoRespositoryQuery {
-	public Page<Lancamento> filtrar(LancamentoFilter lancamentoFilter, Pageable pageable);
-	public Page<ResumoLancamento> resumir(LancamentoFilter lancamentoFilter, Pageable pageable);
+
+	List<LancamentoEstatisticaCategoria> porCategoria(LocalDate mesReferencia);
+
+	Page<Lancamento> filtrar(LancamentoFilter lancamentoFilter, Pageable pageable);
+	Page<ResumoLancamento> resumir(LancamentoFilter lancamentoFilter, Pageable pageable);
 }
