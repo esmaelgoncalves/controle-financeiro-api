@@ -3,12 +3,15 @@
  */
 package com.egoncalves.controlefinanceiro.api.resource;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import com.egoncalves.controlefinanceiro.api.model.dto.LancamentoEstatisticaCategoria;
+import com.egoncalves.controlefinanceiro.api.model.dto.LancamentoEstatisticaDia;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
@@ -46,6 +49,17 @@ public class LancamentoResource {
 	@Autowired
 	private MessageSource messageSource;
 
+	@GetMapping("/estatisticas/categoria")
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
+	List<LancamentoEstatisticaCategoria> porCategorias() {
+		return lancamentoRepository.porCategoria(LocalDate.now());
+	}
+
+	@GetMapping("/estatisticas/dia")
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
+	List<LancamentoEstatisticaDia> porDia() {
+		return lancamentoRepository.porDia(LocalDate.now().withMonth(1));
+	}
 
 	@GetMapping
 	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
