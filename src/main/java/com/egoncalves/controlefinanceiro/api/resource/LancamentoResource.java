@@ -3,22 +3,32 @@
  */
 package com.egoncalves.controlefinanceiro.api.resource;
 
+import java.io.InputStream;
+import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import com.egoncalves.controlefinanceiro.api.model.dto.LancamentoEstatisticaCategoria;
 import com.egoncalves.controlefinanceiro.api.model.dto.LancamentoEstatisticaDia;
+import com.egoncalves.controlefinanceiro.api.model.dto.LancamentoEstatisticaPessoa;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -59,6 +69,17 @@ public class LancamentoResource {
 	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
 	List<LancamentoEstatisticaDia> porDia() {
 		return lancamentoRepository.porDia(LocalDate.now().withMonth(1));
+	}
+
+	@GetMapping("/relatorios/pessoa")
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
+	public ResponseEntity<byte[]> relatorioPorPessoa(@RequestParam @DateTimeFormat(pattern = "yyy-MM-dd") LocalDate inicio,
+													 @RequestParam @DateTimeFormat(pattern = "yyy-MM-dd") LocalDate fim) throws JRException {
+		byte[] relatorio = lancamentoService.getRelatorioPorPessoa(inicio, fim);
+
+		return ResponseEntity.ok()
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_PDF_VALUE)
+				.body(relatorio);
 	}
 
 	@GetMapping

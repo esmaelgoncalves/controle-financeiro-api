@@ -5,6 +5,7 @@ package com.egoncalves.controlefinanceiro.api.repository.lancamento;
 
 import com.egoncalves.controlefinanceiro.api.model.dto.LancamentoEstatisticaCategoria;
 import com.egoncalves.controlefinanceiro.api.model.dto.LancamentoEstatisticaDia;
+import com.egoncalves.controlefinanceiro.api.model.dto.LancamentoEstatisticaPessoa;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -23,6 +24,7 @@ public interface LancamentoRespositoryQuery {
 
 	List<LancamentoEstatisticaCategoria> porCategoria(LocalDate mesReferencia);
 	List<LancamentoEstatisticaDia> porDia(LocalDate mesReferencia);
+	List<LancamentoEstatisticaPessoa> porPessoa (LocalDate inicio, LocalDate fim);
 
 	Page<Lancamento> filtrar(LancamentoFilter lancamentoFilter, Pageable pageable);
 	Page<ResumoLancamento> resumir(LancamentoFilter lancamentoFilter, Pageable pageable);
