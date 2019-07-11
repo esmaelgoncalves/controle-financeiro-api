@@ -5,8 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 import com.egoncalves.controlefinanceiro.api.config.ControleFinanceiroAPIProperty;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
+@EnableScheduling
 @EnableConfigurationProperties(ControleFinanceiroAPIProperty.class)
 public class ControleFinanceiroApiApplication {
 

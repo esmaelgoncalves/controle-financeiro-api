@@ -1,43 +1,39 @@
 /**
- * 
+ *
  */
 package com.egoncalves.controlefinanceiro.api.config;
 
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * @author Esmael
  *
  */
+@Data
 @ConfigurationProperties("controlefinanceiro")
 public class ControleFinanceiroAPIProperty {
-	private String originPermitida = "http://localhost:8000";
+    private String originPermitida = "http://localhost:8000";
 
-	private final Seguranca seguranca = new Seguranca();
+    private final Seguranca seguranca = new Seguranca();
 
-	public Seguranca getSeguranca() {
-		return seguranca;
-	}
+    private final Mail mail = new Mail();
 
-	public String getOriginPermitida() {
-		return originPermitida;
-	}
+    @Data
+    public static class Seguranca {
 
-	public void setOriginPermitida(String originPermitida) {
-		this.originPermitida = originPermitida;
-	}
+        private boolean enableHttps;
 
-	public static class Seguranca {
+    }
 
-		private boolean enableHttps;
+    @Data
+    public static class Mail {
+        private String host;
 
-		public boolean isEnableHttps() {
-			return enableHttps;
-		}
+        private Integer port;
 
-		public void setEnableHttps(boolean enableHttps) {
-			this.enableHttps = enableHttps;
-		}
+        private String username;
 
-	}
+        private String password;
+    }
 }
