@@ -73,8 +73,8 @@ public class LancamentoResource {
 
 	@GetMapping("/relatorios/pessoa")
 	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
-	public ResponseEntity<byte[]> relatorioPorPessoa(@RequestParam @DateTimeFormat(pattern = "yyy-MM-dd") LocalDate inicio,
-													 @RequestParam @DateTimeFormat(pattern = "yyy-MM-dd") LocalDate fim) throws JRException {
+	public ResponseEntity<byte[]> relatorioPorPessoa(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate inicio,
+													 @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fim) throws JRException {
 		byte[] relatorio = lancamentoService.getRelatorioPorPessoa(inicio, fim);
 
 		return ResponseEntity.ok()
